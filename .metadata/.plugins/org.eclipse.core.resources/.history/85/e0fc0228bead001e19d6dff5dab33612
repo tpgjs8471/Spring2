@@ -1,0 +1,8 @@
+package com.myweb.www.domain;
+
+public class PagingVO {
+	
+	private int pageNo; // 현재 페이지 번호
+	private int qty; // 한페이지당 표시될 리스트 개수
+	
+}

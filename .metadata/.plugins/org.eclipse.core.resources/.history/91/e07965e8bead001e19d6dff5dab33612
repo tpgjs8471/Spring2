@@ -1,0 +1,8 @@
+package com.myweb.www.handler;
+
+public class PagingHandler {
+	
+	private int startPage; // 하단 페이지네이션의 시작 번호
+	private int endPage;
+	private boolean pev,next;
+}

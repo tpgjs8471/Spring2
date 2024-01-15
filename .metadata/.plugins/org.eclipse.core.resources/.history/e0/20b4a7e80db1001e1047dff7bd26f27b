@@ -1,0 +1,10 @@
+package com.myweb.www.controller;
+
+@Controller
+@Slf4j
+@RequestMapping("/member/*")
+public class MemberController {
+	
+	private final MemberService msv;
+
+}

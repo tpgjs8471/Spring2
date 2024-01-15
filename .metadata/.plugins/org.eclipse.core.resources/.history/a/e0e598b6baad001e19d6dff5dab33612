@@ -1,0 +1,6 @@
+package com.myweb.www;
+
+public class BoardTest {
+	private BoardDAO bdao;
+	
+}

@@ -1,0 +1,20 @@
+package com.myweb.www.security;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Setter
+@Getter
+@RequiredArgsConstructor
+@NoArgsConstructor
+public class AuthVO {
+	
+	private String email;
+	private String auth;
+
+}

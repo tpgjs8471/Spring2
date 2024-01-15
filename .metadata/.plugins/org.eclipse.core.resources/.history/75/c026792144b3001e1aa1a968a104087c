@@ -1,0 +1,26 @@
+package com.myweb.www.security;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.myweb.www.repository.MemberDAO;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@RequiredArgsConstructor
+@Slf4j
+public class CustomAuthMemberService implements UserDetailsService {
+	
+	
+	private final MemberDAO mdao;
+	
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// username이 DB에 설정되어있는 email이 맞는지 체크
+		return null;
+	}
+
+}

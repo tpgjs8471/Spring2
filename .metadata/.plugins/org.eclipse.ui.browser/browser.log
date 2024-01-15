@@ -1,0 +1,5 @@
+
+1월 15, 2024 10:05:15.474 NEW SESSION
+1월 15, 2024 10:05:15.474 [1948:4292:0115/100515.472:ERROR:interface_endpoint_client.cc(702)] Message 0 rejected by interface blink.mojom.WidgetHost
+1월 15, 2024 13:32:59.149 [1948:4292:0115/133259.148:ERROR:CONSOLE(0)] "ReferenceError: dragEvent is not defined", source:  (0)
+1월 15, 2024 13:33:00.836 [1948:4292:0115/133300.835:ERROR:CONSOLE(0)] "ReferenceError: dragEvent is not defined", source:  (0)

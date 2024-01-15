@@ -1,0 +1,8 @@
+package com.myweb.www;
+
+import com.myweb.www.repository.BoardDAO;
+
+public class BoardTest {
+	private BoardDAO bdao;
+	
+}
