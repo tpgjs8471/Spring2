@@ -1,0 +1,50 @@
+ Comment Delete
+
+ produces = MediaType.TEXT_PLAIN_VALUE
+	// 텍스트 형식의 단순한 문자열을 반환하는 컨트롤러 메서드에 사용
+	=> ResponseEntity<String>를 반환하고 있으며, 반환되는 문자열은 평문 텍스트
+ consumes = "application/json
+ 	// 해당 컨트롤러 메서드는 클라이언트로부터 받는 요청의 Content-Type 헤더를 
+	확인하여 해당 값이 "application/json"인 경우에만 메서드를 수행
+
+ @PostMapping : 생성(CREATE)
+ @GetMapping :  조회(READ)
+ @PutMapping : 업데이트(UPDATE)
+ @GetMapping : 삭제(DELETE)
+	C R U D
+===============================
+ JS에서 서버에 요청할때 method의 종류
+ const config = {
+            method : "delete"
+        };
+ GET: 리소스를 가져오기 위한 요청입니다.
+ POST: 리소스를 생성하기 위한 요청입니다.
+ PUT: 리소스를 업데이트하기 위한 요청입니다. 
+ DELETE: 리소스를 삭제하기 위한 요청입니다.
+ PATCH: 리소스를 부분적으로 업데이트하기 위한 요청입니다.
+ HEAD: 헤더 정보만을 요청하는 요청입니다.
+ OPTIONS: 서버의 지원 옵션을 확인하기 위한 요청입니다.
+
+================================
+ 파일 업로드
+ pom.xml 디펜던시 추가
+
+ 경로 설정
+ D:\_myProject\_java\_fileUpload
+ FIle 설정
+ servlertConfig : 업로드 경로 설정
+ webConfig 설정 : maxFileSize , maxReqSize , fileSizeThreshold
+ 파일테이블 구성
+ create table file(
+uuid varchar(256) not null,
+save_dir varchar(256) not null,
+file_name varchar(256) not null,
+file_type tinyint(1) default 0,
+bno bigint,
+file_size bigint,
+reg_at datetime default now(),
+primary key(uuid)
+)
+
+ FIleVO 생성
+ 

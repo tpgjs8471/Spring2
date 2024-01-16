@@ -1,0 +1,135 @@
+Spring xml - > security 변경?
+
+
+ _spring_workspace2 폴더 생성
+	깃에 올릴때 비어있는 폴더는 삭제되네 폴더안의 비어있는 jsp라도 넣어서 올리기
+
+설정 해주기
+ JSP 설정
+동일 
+ spring 설정
+ java build path	jdk default 11
+ compiler		jdk 11
+ project facet	dynamic 4.0 : java 11
+
+ pom.xml
+ java 와 프레임워크 버전 11로 변경
+
+ Servlert 부분
+javax.servlet
+4.0.1 로 변경 하고
+servlet-api 에 javax 를 추가
+javax.servlet-api
+
+맨 밑에
+org.apache.maven.plugins
+부분
+source 와 target 11 로 (자바버전과 같게) 동일하게 변경
+
+lombok
+<!-- DB관련 -->
+	<!-- mysql-connector-java / mybatis / mybatis-spring / HikariCP -->
+<!-- 댓글관련 -->
+	<!-- jackson-databind / jackson-dataformat-xml -->
+<!-- 파일 업로드 관련 -->
+	<!-- commons-fileupload / commons-io / thumbnailator / tika-core / tika-parsers -->
+<!-- security 관련 -->
+	<!-- core / web / config / taglib -->
+
+springframework 관련 2개 test 와 jdbc 구문 추가
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+
+logging 쪽에
+log4j 구문 전체 주석 처리 
+=> 보안이 매우 취약되서 잘 사용하지 않음
+=> logback을 사용함
+=> 버전 호환을 위해 slf4k 버전을 2.0.7 로 수정
+<org.slf4j-version>2.0.7</org.slf4j-version>
+
+	- logback classic
+<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+<dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.4.5</version>
+    <scope>test</scope>
+</dependency>
+
+	- logback core
+<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
+<dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-core</artifactId>
+    <version>1.4.5</version>
+</dependency>
+
+ - log4jdbc : log4j의 라이브러리
+<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
+<dependency>
+    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+    <version>1.16</version>
+</dependency>
+=============================================
+main / resource 폴더에
+ log3j.xml 삭제하고 logback.xml 생성
+//  logback.xml  설정
+<configuration debug="true">
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d %5p [%c] -%kvp- %msg%n</pattern>
+    </encoder>
+  </appender>.
+  
+  <logger name="com.myweb.www" level="info" appender-ref="STDOUT"></logger>
+  <logger name="org.springframework" level="info" appender-ref="STDOUT"></logger>
+  <logger name="org.springframework.jdbc" level="info" appender-ref="STDOUT"></logger>
+  <logger name="jdbc.sqlonly" level="info" appender-ref="STDOUT"></logger>
+  <logger name="jdbc.resultsettable" level="info" appender-ref="STDOUT"></logger>
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
+
+===============================================
+main / resource 폴더안에 text 파일 하나 생성 후
+ 파일명 : log4jdbc.log4j2.properties
+log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+이걸 사용하지 않으면 log 오류 발생!!
+===============================================
+main/java 에 package 생성
+ config , controller , domain , handler , repository , service 생성 후
+ home_controller 를 controller package 로 옮기고
+ retrun home 을 index 로 변경 및 views안에 있는 home.jsp 도 같이 변경
+ main / webapp 
+ web.xml 삭제
+ spring 폴더 삭제
+==================================================
+pom.xml 추가 설정
+	맨 밑 plugin이 끝나는 곳에  // /plugins 위
+ web.xml 삭제, javaConfig 설정하기 위한 추가 설정 : 오타 주의!!
+
+            <plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                 <version>3.2.0</version>
+                 <configuration>
+                 	<failOnMissingWebXml>false</failOnMissingWebXml>
+                 </configuration>
+            </plugin>
+====================================================
+config package 에 WebConfig class 생성
+< 본문 주석 참고>
+
+ServletCongfiguration.java 
+< 본문 주석 참고>

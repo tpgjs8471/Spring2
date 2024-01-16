@@ -1,0 +1,6 @@
+깃허브
+
+git add .
+git commit
+git push origin main
+

@@ -1,0 +1,55 @@
+RootConfig / DB에 대한 설정
+
+  - java Config 설정 프로젝트
+ 1. pom.xml
+ 2. 패키지 생성 / 폴더 생성
+ 3. WebConfig.java => 전반적인 설정
+ 3 ServletConfig.java => 화면 / 경로 관련 설정
+ 4. rootConfig.java => DB 관련 설정
+
+================================
+ DB 생성
+ 1.  User 와 DB 생성
+-- root 계정으로만 DB생성 과 USER생성 = root 계정만이 권한을 가지고있음
+ create database mywebdb;
+
+-- user 생성
+ create user 'mywebUser'@'localhost' identified by 'mysql'; 
+-- user 권한부여
+ grant all privileges on mywebdb.*to
+ 'mywebUser'@'localhost' with grant option;
+-- 권한 설정 완료? 확인?
+ flush privileges;
+================================
+ 	RootConfig.class
+ // DB설정부분
+ // hikariCp 사용 / log4jdbc-log4j2 사용
+ // @autowired :  객체 자동 생성 // inject ?
+ // @bean : web.xml 에서의 bean 과 동일
+ // hikari 설정
+ // SqlSessionFactory 설정
+
+==================================
+일반적으로 DB는 _로 단어구분
+ read_count (SQL) => readCount (Java)
+ mapUnderscoreTocameClass : 변경하는 역할
+  <configuration>
+  	<settings>
+  		<setting name="mapUnderscoreTocameClass" value="true" />
+  	</settings>
+  </configuration>
+
+==========================================
+ SQL DB테이블 생성
+create table board(
+bno bigint not null auto_increment,
+title varchar(200) not null,
+writer varchar(100) not null,
+content text not null,
+reg_date datetime default now(),
+mod_date datetime default now(),
+read_count int default 0,
+cmt_qty int default 0,
+has_file int default 0,
+primary key(bno));.
+

@@ -1,7 +1,0 @@
-package com.myweb.www.domain;
-
-public class PagingVO {
-	
-	private int pageNo; // 현재 페이지 번호
-	
-}

@@ -1,0 +1,114 @@
+---------------------------
+전체 리스트에서 bno에 일치하는 댓글 갯수 Update
+update board b set cmt_qty =
+(select count(bno) from comment
+where bno = b.bno
+
+-----------------------------
+FileHandler
+
+Sweeper(청소부 역할)
+DB의 파일명과 , 폴더안의 파일을 비교하여 일치하지 않는 값이 있다면
+삭제.(폴더에서 삭제)
+
+스케줄러 기능
+해당 스케줄에 맞춰서 자동으로 실행
+Spring 자체에 스케줄러기능이 기본적으로 포함되어있음.
+
+pom.xml 
+scheduler MVN
+ - quartz 2.3.2
+<!-- https://mvnrepository.com/artif
+
+act/org.quartz-scheduler/quartz -->
+<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz</artifactId>
+    <version>2.3.2</version>
+</dependency>
+
+
+ - quartz-jobs 2.3.2
+<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz-jobs -->
+<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz-jobs</artifactId>
+    <version>2.3.2</version>
+</dependency>
+
+=========================
+
+	<!-- security 관련 -->
+	<!-- core / web / config / taglib -->
+ member
+ - 회원가입
+ - 로그인 (ID , PassWord => DB 일치하는 값이 있는 지 확인
+	=> Session저장 ) 
+ - 로그아웃 ( Session 끊기 )
+
+ User의 권한
+ - admin 전체? 관리자
+ 	- ROLE_ADMIN
+[ - manager 중간관리자 ( 수업에서는 생략 ) ]
+ - user 유저
+	 - ROLE_USER
+
+ - security pom.xml 설정
+ sprong-security-core 5.5.3
+<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>5.5.3</version>
+</dependency>
+
+ sprong-security-web 5.5.3
+<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>5.5.3</version>
+</dependency>
+
+ sprong-security-config 5.5.3
+<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>5.5.3</version>
+</dependency>
+
+ sprong-security-taglib 5.5.3
+<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-taglibs</artifactId>
+    <version>5.5.3</version>
+</dependency>
+
+ 테이블 생성
+create table member(
+email varchar(100) not null,
+pwd varchar(1000) not null,
+nick_name varchar(100) not null,
+reg_at datetime default now(),
+last_login datetime default null,
+primary key(email)
+);
+// 권한에 대한 것
+create table auth_member(
+email varchar(100) not null,
+auth varchar(50) not null
+);
+
+// 외래 키 지정
+alter table auth_member add constraint fk_auth foreign key(email)
+references member(email);
+
+//  시큐리티 패키지를 따로구성 => 관리하기 편하게 하기 위할 뿐
+
+자주 사용하는 권한 설정 범위
+hasRole('role')
+isAuthenticated()
+isAnonymous()
+isRememberMe()

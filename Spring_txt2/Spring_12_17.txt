@@ -1,0 +1,18 @@
+<c:set value="${bdto.bvo}" var="bvo"></c:set>
+jsp에만 적용이 되기 때문에 js에서의 수정은 따로
+<script type="text/javascript">
+	let bnoVal = `<c:out value="${bdto.bvo.bno}" />`;
+</script>
+
+boardRegister.js
+boardModify.js 구현
+
+<a href="파일경로" download> : 다운로드 기능
+EX
+
+<a href="/fileupload/${fvo.saveDir}/${fvo.uuid}_${fvo.fileName}" download>
+	<i class="bi bi-upload"></i>
+</a>
+
+File upolad modify remove 구현 완료
+board table 댓글 수, 파일 수 구하기 완료
