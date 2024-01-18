@@ -42,6 +42,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 	protected void customizeRegistration(Dynamic registration) {
 		// 그외 기타 사용자 설정
 		// 사용자 지정 익셉션 처리 지정 : 4xx , 5xx ... error 페이지 설정(custom)이라고 보면 될듯
+		registration.setInitParameter("throwExceptionIfNoHandlerFount", "true");
 		
 		// 2024 -01 -10 
 		// 파일 업로드 설정

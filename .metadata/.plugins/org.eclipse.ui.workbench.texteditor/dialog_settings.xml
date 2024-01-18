@@ -6,8 +6,15 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="delete"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="email 체크"/>
+			<item value="email"/>
+			<item value="isOk"/>
+			<item value="123123"/>
+			<item value="1111111111111111"/>
+			<item value="ses"/>
+			<item value="fetch"/>
 			<item value="delete"/>
 			<item value="\"/>
 			<item value="ReadCount"/>
@@ -16,13 +23,6 @@
 			<item value="uuid"/>
 			<item value="removeFile"/>
 			<item value="pill"/>
-			<item value="round"/>
-			<item value="Thumbnailator"/>
-			<item value="삭제할"/>
-			<item value="&gt;&gt;&gt;&gt; cvo &gt;&gt;&gt;&gt; "/>
-			<item value="moreBtn"/>
-			<item value="&gt;&gt;&gt;&gt; cvo &gt;&gt;&gt;&gt;"/>
-			<item value="modify serviceImpl insert"/>
 		</list>
 		<list key="replacehistory">
 		</list>

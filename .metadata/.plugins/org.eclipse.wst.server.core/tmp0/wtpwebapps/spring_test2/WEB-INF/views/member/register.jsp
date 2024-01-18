@@ -13,16 +13,23 @@
 		<div class="mb-3">
 		  <label for="email" class="form-label">Email</label>
 		  <input type="text" name="email" class="form-control" id="e" placeholder="Email...">
+		  <button type="button" id="emailCheck">중복확인</button>
+		  <span id="eCheck" style="color: red;"></span>
 		</div>
 		<div class="mb-3">
 		  <label for="pw" class="form-label">PassWord</label>
-		  <input type="password" name="pwd" class="form-control" id="p" placeholder="PW...">
+		  <input type="password" name="pwd" class="form-control" id="p" oninput="passwordCheck()" placeholder="PW...">
+		</div>
+		<div class="mb-3">
+		  <label for="pw" class="form-label">PassWord</label>
+		  <input type="password" name="pwd2" class="form-control" id="p2" oninput="passwordCheck()" placeholder="PW2...">
+		  <span id="pwdCheck" style="color: red;"></span>
 		</div>
 		<div class="mb-3">
 		  <label for="name" class="form-label">nickName</label>
 		  <input type="text" name="nickName" class="form-control" id="n" placeholder="Name...">
 		</div>
-		<button type="submit" class="btn btn-primary btn-sm">회원가입</button>
+		<button type="submit" id="registerBtn" class="btn btn-primary btn-sm">회원가입</button>
 		
 </form>
 
@@ -30,3 +37,4 @@
 
 
 <jsp:include page="../layout/footer.jsp"></jsp:include>
+<script src="/resources/js/memberRegister.js"></script>

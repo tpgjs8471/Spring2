@@ -2,6 +2,8 @@ package com.myweb.www.repository;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.myweb.www.security.AuthVO;
 import com.myweb.www.security.MemberVO;
 
@@ -28,5 +30,9 @@ public interface MemberDAO {
 	void removeAuth(String email);
 
 	int remove(String email);
+
+	MemberVO checkEmailSelect(String email);
+
+	ResponseEntity<String> emailCheck(String email);
 
 }

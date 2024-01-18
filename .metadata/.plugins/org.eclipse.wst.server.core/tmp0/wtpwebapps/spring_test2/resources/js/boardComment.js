@@ -14,7 +14,7 @@ document.getElementById('cmtPostBtn').addEventListener('click',()=>{
             writer : cmtWriter,
             content : cmtText.value
         };
-        console.log(cmtData);
+        console.log("cmtData 확인용도"+cmtData);
         postCommentToServer(cmtData).then(result =>{
             console.log(result);
             if(result == '1'){
@@ -69,6 +69,8 @@ function spreadCommentList(bno,page=1){
     getCommentListFromServer(bno,page).then(result =>{
         console.log(result.cmtList); // result 확인용
         let div = document.getElementById('accordionExample');
+        let id = document.getElementById('cmtWriter').value;
+        let admin = document.getElementById('cmtWriter');
         // 댓글 모양대로 뿌리기
         if(result.cmtList.length > 0){
             if(page ==1 ){    
@@ -84,8 +86,13 @@ function spreadCommentList(bno,page=1){
                 add += `<div id="collapse${i}" class="accordion-collapse collapse show" `;
                 add += `data-bs-parent="#accordionExample">`;
                 add += `<div class="accordion-body" data-cno="${result.cmtList[i].cno}" data-writer="${result.cmtList[i].writer}">`;
-                add += `<button type="button" data-cno="${result.cmtList[i].cno}" class="btn btn-warning btn-sm  mod" data-bs-toggle="modal" data-bs-target="#myModal">수정</button>`;
-                add += `<button type="button" data-cno="${result.cmtList[i].cno}?" class="btn btn-danger btn-sm del">삭제</button>`;
+                if( id === `${result.cmtList[i].writer}` ) {
+                    add += `<button type="button" data-cno="${result.cmtList[i].cno}" class="btn btn-warning btn-sm  mod" data-bs-toggle="modal" data-bs-target="#myModal">수정</button>`;
+                    add += `<button type="button" data-cno="${result.cmtList[i].cno}?" class="btn btn-danger btn-sm del">삭제</button>`;
+                } else if(admin.value == `admin`){
+                    add += `<button type="button" data-cno="${result.cmtList[i].cno}" class="btn btn-warning btn-sm  mod" data-bs-toggle="modal" data-bs-target="#myModal">수정</button>`;
+                    add += `<button type="button" data-cno="${result.cmtList[i].cno}?" class="btn btn-danger btn-sm del">삭제</button>`;
+                }
                 add += `<input type="text" class="form-control cmtText" value="${result.cmtList[i].content}">`;
                 add += `</div></div></div></div>`;
                 div.innerHTML += add;

@@ -2,12 +2,17 @@
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+ <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <jsp:include page="../layout/nav.jsp"></jsp:include>
 
 
 <div class="container-md">
 <c:set value="${bdto.bvo}" var="bvo"></c:set>
+<sec:authorize access="isAuthenticated()">
+<sec:authentication property="principal.mvo.email" var="authEmail" />
+<sec:authentication property="principal.mvo.nickName" var="authNick" />
+<sec:authentication property="principal.mvo.authList" var="auths" />
 <h2>Board Detail</h2>
 		<div class="mb-3">
 		  <label for="bno" class="form-label">bno</label>
@@ -19,7 +24,7 @@
 		</div>
 		<div class="mb-3">
 		  <label for="writer" class="form-label">Writer</label>
-		  <input type="text" name="writer" class="form-control" id="writer" value="${bvo.writer }" readonly="readonly">
+		  <input type="text" name="writer" class="form-control" id="writer" value="${bvo.writer}" readonly="readonly">
 		</div>
 		<div class="mb-3">
 		  <label for="reg_date" class="form-label">reg_date</label>
@@ -63,19 +68,49 @@
 		  	</c:forEach>
 		  </ul>
 		  </div>
-		<a href="/board/modify?bno=${bvo.bno}"><button type="button" class="btn btn-success">수정</button></a>
-		<a href="/board/remove?bno=${bvo.bno}"><button type="button" class="btn btn-danger">삭제</button></a>
+		  <c:choose>
+		  	<c:when test="${bvo.writer eq authEmail}">
+				<a href="/board/modify?bno=${bvo.bno}"><button type="button" class="btn btn-success">수정</button></a>
+				<a href="/board/remove?bno=${bvo.bno}"><button type="button" class="btn btn-danger">삭제</button></a>
+			</c:when>
+				<c:when test="${auths.stream().anyMatch(authVO ->
+			authVO.auth.equals('ROLE_ADMIN')).get() }">			
+					<a href="/board/modify?bno=${bvo.bno}"><button type="button" class="btn btn-success">수정</button></a>
+					<a href="/board/remove?bno=${bvo.bno}"><button type="button" class="btn btn-danger">삭제</button></a>
+				</c:when>
+		  </c:choose>
+		  
 		<a href="/board/list"><button type="button" class="btn btn-primary">게시판</button></a>
 		<hr>
 		<br>
+		<!-- 로그인 안되어있으면 댓글 작성 금지 
+			ROLE_USER
+			ROLE_ADMIN
+		-->
+		
+		<c:choose>
+			<c:when test="${auths.stream().anyMatch(authVO ->
+			authVO.auth.equals('ROLE_USER')).get() }">
 		<!-- 댓글 등록 라인 -->
 		<div class="input-group input-group-sm mb-3">
-			<span id="cmtWriter" class="input-group-text">${ses.id}</span>
+			<input id="cmtWriter" class="input-group-text" readonly="readonly" value="${authEmail}">
 			<input type="text" id="cmtText" class="form-control" placeholder="Add Comment.....">
 			<button type="button" id="cmtPostBtn" class="btn btn-outline-secondary">댓글등록</button>
 		</div>
+			</c:when>
+			<c:when test="${auths.stream().anyMatch(authVO ->
+			authVO.auth.equals('ROLE_ADMIN')).get() }">
+		<div class="input-group input-group-sm mb-3">
+			<input id="cmtWriter" class="input-group-text" readonly="readonly" value="admin">
+			<input type="text" id="cmtText" class="form-control" placeholder="Add Comment.....">
+			<button type="button" id="cmtPostBtn" class="btn btn-outline-secondary">댓글등록</button>
+		</div>
+			</c:when>
+		</c:choose>
+		</sec:authorize>
 		<br>
 		<hr>
+		
 		<!-- 댓글 표시 라인 -->
 		<div class="accordion" id="accordionExample">
 		  <div class="accordion-item">

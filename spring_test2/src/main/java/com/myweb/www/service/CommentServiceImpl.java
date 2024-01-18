@@ -44,12 +44,14 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public int modify(CommentVO cvo) {
 		log.info("modify serviceImpl insert");
+		
 		return cdao.update(cvo);
 	}
 
 	@Override
 	public int remove(long cno) {
 		log.info("remove serviceImpl insert");
+		
 		return cdao.delete(cno);
 	}
 }

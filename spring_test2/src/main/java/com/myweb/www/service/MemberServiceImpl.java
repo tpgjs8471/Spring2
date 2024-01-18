@@ -2,6 +2,7 @@ package com.myweb.www.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,17 @@ public class MemberServiceImpl implements MemberService{
 	public int register(MemberVO mvo) {
 		log.info("member register in");
 		
+		MemberVO checkMvo = new MemberVO();
+		checkMvo = mdao.selectEmail(mvo.getEmail());
+		if(checkMvo != null) {
+			return 0;
+		}
+		if(mvo.getEmail() == null || mvo.getEmail().length() == 0) {
+			return 0;
+		}
+		if(mvo.getPwd() == null || mvo.getPwd().length() == 0) {
+			return 0;
+		}
 		int isOk = mdao.insert(mvo);
 
 		return mdao.insertAuthInit(mvo.getEmail());
@@ -76,5 +88,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mdao.remove(email);
 	}
+
 
 }

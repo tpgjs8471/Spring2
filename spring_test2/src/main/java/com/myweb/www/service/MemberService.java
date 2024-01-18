@@ -2,6 +2,8 @@ package com.myweb.www.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.myweb.www.security.MemberVO;
 
 public interface MemberService {
@@ -19,5 +21,4 @@ public interface MemberService {
 	int modifyPwdEmpty(MemberVO mvo);
 
 	int remove(String email);
-
 }
